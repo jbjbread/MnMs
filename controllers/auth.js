@@ -209,32 +209,33 @@ exports.postRandomNumberVerify = async (req, res, next) => {
  */
 
 //회원가입 최종단계
-// exports.postUserInfo = async (req, res) => {
-//     const phone_num = req.body.phone_num;
-//     const email = req.body.email;
-//     const user_type = req.body.user_type;
+exports.postUserInfo = async (req, res) => {
+    const phone_num = req.body.phone_num;
+    const email = req.body.email;
+    const user_type = req.body.user_type;
+    console.log(req.body)
 
-//     const sql = 'INSERT INTO users (user_id, phone_num, created_at, is_using, user_type, email) VALUES ($1, $2, $3, $4, $5) RETURNING *'
-//     const values = [create_user_id(20), phone_num, new Date(), true, user_type, email]
+    const sql = 'INSERT INTO users (user_id, phone_num, created_at, is_using, user_type, email) VALUES ($1, $2, $3, $4, $5) RETURNING *'
+    const values = [create_user_id(20), phone_num, new Date(), true, user_type, email]
 
-//     try {
-//         pool.connect()
-//         .then(client => {
-//             return client.query(sql, values)
-//             .then(row => {
-//                 client.release()
-//                 res.json({status : 200, data : '저장 성공'})
-//             })
-//             .catch(err => {
-//                 console.log('postUserInfo 호출성공')
-//                 res.json({status : 304, desc : err})
-//             })
-//         })
-//     } catch (err) {
-//         console.log('postUserInfo 호출성공')
-//         res.json({status : 304, desc : err})
-//     }
-// }
+    try {
+        pool.connect()
+        .then(client => {
+            return client.query(sql, values)
+            .then(row => {
+                client.release()
+                res.json({status : 200, data : '저장 성공'})
+            })
+            .catch(err => {
+                console.log('postUserInfo 호출성공')
+                res.json({status : 304, desc : err})
+            })
+        })
+    } catch (err) {
+        console.log('postUserInfo 호출성공')
+        res.json({status : 304, desc : err})
+    }
+}
 
 /**
  * @swagger
